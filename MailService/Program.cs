@@ -1,8 +1,8 @@
-﻿using MailService.DBModels;
+﻿using MailService;
+using MailService.DBModels;
 using MailService.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +14,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+var serverConfig = new ServerConfiguration(builder.Configuration);
+
+builder.Services.AddSingleton(serverConfig);
 
 builder.Services.AddTransient<ILogMailService, LogMailService>();
 builder.Services.AddTransient<ISendEMailService, SendEmailService>();

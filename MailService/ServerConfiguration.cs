@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MailService.JSONModels
+﻿
+namespace MailService
 {
     public class ServerConfiguration
     {
-        private readonly IConfiguration _configuration;
-
         /// <summary>
         /// Username email
         /// </summary>
@@ -36,14 +33,13 @@ namespace MailService.JSONModels
         /// </summary>
         /// <param name="configuration">Configuration data</param>
         public ServerConfiguration(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            Name = _configuration["SMTPServer:Name"];
-            EmailFrom = _configuration["SMTPServer:EmailFrom"];
-            Password = _configuration["SMTPServer:Password"];
-            ServerName = _configuration["SMTPServer:ServerName"];
+        {         
+            Name = configuration["SMTPServer:Name"];
+            EmailFrom = configuration["SMTPServer:EmailFrom"];
+            Password = configuration["SMTPServer:Password"];
+            ServerName = configuration["SMTPServer:ServerName"];
 
-            if (int.TryParse(_configuration["SMTPServer:Host"], out int res))
+            if (int.TryParse(configuration["SMTPServer:Host"], out int res))
             {
                 Host = res;
             }

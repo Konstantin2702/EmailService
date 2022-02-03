@@ -6,7 +6,6 @@ namespace MailService.Services
 {
     public class SendEmailService:ISendEMailService
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogMailService _logMailService;
         private readonly ServerConfiguration _serverConfiguration;
 
@@ -15,11 +14,10 @@ namespace MailService.Services
         /// </summary>
         /// <param name="configuration">Configuration data</param>
         /// <param name="logMailService">Service that save information in DB about sending email's messages</param>
-        public SendEmailService(IConfiguration configuration, ILogMailService logMailService)
+        public SendEmailService(IConfiguration configuration, ILogMailService logMailService, ServerConfiguration serverConfiguration)
         {
-            _configuration = configuration;
             _logMailService = logMailService;
-            _serverConfiguration = new ServerConfiguration(_configuration);
+            _serverConfiguration =serverConfiguration;
         }
 
         ///<inheritdoc cref="ISendEMailService.CreatingEmailMessages(MailJSONRequest)/>
